@@ -12,6 +12,17 @@ dist
 dist-ssr
 *.local
 
+# Environment variables (keep secrets out of git; commit .env.example instead)
+.env
+.env.*
+!.env.example
+
+# TypeScript incremental build info
+*.tsbuildinfo
+
+# Test coverage reports
+coverage
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
