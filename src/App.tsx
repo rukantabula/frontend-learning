@@ -6,7 +6,7 @@ import './App.css'
 
 type LinkIcon =
   | { kind: 'image'; src: string; className: string }
-  | { kind: 'sprite'; id: string }
+  | { kind: 'sprite'; id: string; className: string }
 
 type ResourceLink = {
   label: string
@@ -14,7 +14,7 @@ type ResourceLink = {
   icon: LinkIcon
 }
 
-const DOC_LINKS: ResourceLink[] = [
+const DOC_LINKS: readonly ResourceLink[] = [
   {
     label: 'Explore Vite',
     href: 'https://vite.dev/',
@@ -27,33 +27,33 @@ const DOC_LINKS: ResourceLink[] = [
   },
 ]
 
-const SOCIAL_LINKS: ResourceLink[] = [
+const SOCIAL_LINKS: readonly ResourceLink[] = [
   {
     label: 'GitHub',
     href: 'https://github.com/vitejs/vite',
-    icon: { kind: 'sprite', id: 'github-icon' },
+    icon: { kind: 'sprite', id: 'github-icon', className: 'button-icon' },
   },
   {
     label: 'Discord',
     href: 'https://chat.vite.dev/',
-    icon: { kind: 'sprite', id: 'discord-icon' },
+    icon: { kind: 'sprite', id: 'discord-icon', className: 'button-icon' },
   },
   {
     label: 'X.com',
     href: 'https://x.com/vite_js',
-    icon: { kind: 'sprite', id: 'x-icon' },
+    icon: { kind: 'sprite', id: 'x-icon', className: 'button-icon' },
   },
   {
     label: 'Bluesky',
     href: 'https://bsky.app/profile/vite.dev',
-    icon: { kind: 'sprite', id: 'bluesky-icon' },
+    icon: { kind: 'sprite', id: 'bluesky-icon', className: 'button-icon' },
   },
 ]
 
 function SpriteIcon({ id, className }: { id: string; className: string }) {
   return (
     <svg className={className} role="presentation" aria-hidden="true">
-      <use href={`/icons.svg#${id}`}></use>
+      <use href={`${import.meta.env.BASE_URL}icons.svg#${id}`}></use>
     </svg>
   )
 }
@@ -62,7 +62,7 @@ function LinkIconView({ icon }: { icon: LinkIcon }) {
   if (icon.kind === 'image') {
     return <img className={icon.className} src={icon.src} alt="" />
   }
-  return <SpriteIcon id={icon.id} className="button-icon" />
+  return <SpriteIcon id={icon.id} className={icon.className} />
 }
 
 function Counter() {
@@ -103,7 +103,7 @@ type LinkPanelProps = {
   iconId: string
   title: string
   description: string
-  links: ResourceLink[]
+  links: readonly ResourceLink[]
 }
 
 function LinkPanel({ id, iconId, title, description, links }: LinkPanelProps) {
